@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import routes from './routes';
+import TeamupThemeProvider from './TeamupThemeProvider';
 import './App.css';
 
 class App extends Component {
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+    const { classes } = this.props;
+
+    return (<Router>
+      <TeamupThemeProvider>
+        {/* <ul>
+          {routes.map(route =>
+            <Link key={route.id} to={route.path}>{route.label}</Link>
+          )}
+        </ul>
+
+        <hr /> */}
+
+
+        {routes.map(route =>
+          <Route key={`route-${route.id}`} path={route.path} exact={route.exact} component={route.component} />
+        )}
+      </TeamupThemeProvider>
+    </Router>
     );
   }
 }
